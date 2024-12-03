@@ -33,7 +33,7 @@ export const ListDropdown = ({
                     </div>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="max-h-60 overflow-y-auto">
                 {options.map((item, index) => (
                     <DropdownMenuItem
                         key={item}

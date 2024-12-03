@@ -1,39 +1,74 @@
 import { useState } from 'react';
 import { Toolbar } from './components/Toolbar.jsx';
 import { Textarea } from '@/components/ui/textarea';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import './lineNumbers.css';
 
 export const CodePrinter = ({ fontList, fontSizes, themes }) => {
     const [font, setFont] = useState('Inconsolata');
     const [size, setSize] = useState(12);
-    const [theme, setTheme] = useState(
-        themes ? Object.keys(themes)[0] : 'None',
-    );
+    const [themeName, setThemeName] = useState(themes ? 'Grayscale' : 'None');
     const [showLineNumbers, setShowLineNumbers] = useState(true);
+    const [code, setCode] = useState('');
+    const [language, setLanguage] = useState('plaintext');
+
+    console.log(themes[themeName]);
+    const languages = SyntaxHighlighter.supportedLanguages.filter((x) => {
+        return !x.startsWith('brain');
+    });
 
     return (
         <>
-            <div className="grow-0">
+            <div className="grow-0 print:hidden">
                 <Toolbar
                     fontList={fontList}
                     fontSizes={fontSizes}
-                    themes={themes}
+                    themes={Object.keys(themes)}
+                    languageList={languages}
                     defaultFont={font}
                     defaultSize={size}
-                    defaultTheme={theme}
+                    defaultTheme={themeName}
+                    defaultLanguage={language}
                     showLineNumbers={showLineNumbers}
                     onFontChange={setFont}
                     onSizeChange={setSize}
-                    onThemeChange={setTheme}
+                    onThemeChange={setThemeName}
                     onShowLineNumbersChange={setShowLineNumbers}
-                    onPrint={() => console.log('Print!')}
+                    onLanguageChange={setLanguage}
+                    onPrint={window.print}
                 ></Toolbar>
             </div>
             <div className="flex grow flex-col p-3">
                 <Textarea
-                    className="grow"
+                    className="grow resize-none print:hidden"
                     style={{ fontFamily: font, fontSize: size }}
                     placeholder="Paste your code here!"
+                    onChange={(e) => setCode(e.currentTarget.value)}
                 ></Textarea>
+
+                <div className="screen:hidden" style={{ fontSize: '62.5%' }}>
+                    <SyntaxHighlighter
+                        lineProps={
+                            showLineNumbers ? { className: 'lineNumber' } : null
+                        }
+                        wrapLines={true}
+                        style={themes[themeName] || ''}
+                        codeTagProps={{
+                            style: {
+                                fontFamily: `"${font}", monospace`,
+                                fontSize: `${size}pt`,
+                            },
+                        }}
+                        lineNumberStyle={{
+                            fontFamily: `"${font}", monospace`,
+                            fontSize: `${size}pt`,
+                        }}
+                        language={language}
+                        customStyle={{ border: 'none' }}
+                    >
+                        {code}
+                    </SyntaxHighlighter>
+                </div>
             </div>
         </>
     );

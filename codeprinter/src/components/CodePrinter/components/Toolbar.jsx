@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FontDropdown } from './FontDropdown.jsx';
 import { ListDropdown } from './ListDropdown.jsx';
+import { LanguageList } from './LanguageList.jsx';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 
@@ -11,18 +12,21 @@ export const Toolbar = ({
     defaultSize,
     themes,
     defaultTheme,
+    languageList,
+    defaultLanguage,
     showLineNumbers,
     onFontChange,
     onSizeChange,
     onThemeChange,
     onShowLineNumbersChange,
+    onLanguageChange,
     onPrint,
 }) => {
     const [themeName, setThemeName] = useState(defaultTheme);
 
     const handleThemeChange = (themeName) => {
         setThemeName(themeName);
-        onThemeChange(themes[themeName]);
+        onThemeChange(themeName);
     };
 
     return (
@@ -41,18 +45,23 @@ export const Toolbar = ({
                     caption="Font Size"
                 ></ListDropdown>
                 <ListDropdown
-                    options={Object.keys(themes)}
+                    options={themes}
                     defaultItem={defaultTheme}
                     onChange={handleThemeChange}
                     caption="Theme"
                 ></ListDropdown>
-                <label style={{ display: 'block' }}>
+                <label className="mx-3 block">
                     <Checkbox
                         checked={showLineNumbers}
                         onCheckedChange={onShowLineNumbersChange}
                     />
                     &nbsp;Line Numbers
                 </label>
+                <LanguageList
+                    options={languageList}
+                    defaultItem={defaultLanguage}
+                    onChange={onLanguageChange}
+                ></LanguageList>
             </div>
             <div className="ml-auto flex justify-end p-3">
                 <Button variant="outline" onClick={onPrint}>
