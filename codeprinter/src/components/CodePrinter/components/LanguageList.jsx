@@ -33,7 +33,7 @@ export const LanguageList = ({ options, defaultItem, onChange }) => {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="/*w-[200px]*/ justify-between"
+                    className="justify-between"
                 >
                     {value ? 'Language: ' + value : 'Select language...'}
                     {/*<ChevronsUpDown className="opacity-50" />*/}

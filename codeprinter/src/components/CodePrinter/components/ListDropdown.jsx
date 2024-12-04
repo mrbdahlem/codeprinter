@@ -27,7 +27,7 @@ export const ListDropdown = ({
     return (
         <DropdownMenu style={props.style} className={props.className}>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="m-3">
+                <Button variant="outline">
                     <div>
                         {caption}: {selected}
                     </div>

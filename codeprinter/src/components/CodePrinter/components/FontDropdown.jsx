@@ -21,7 +21,7 @@ export const FontDropdown = ({ defaultFont, fontList, onChange }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="m-3">
+                <Button variant="outline">
                     <div style={{ textAlign: 'center' }}>
                         Font: <span style={{ fontFamily: font }}>{font}</span>
                     </div>

@@ -4,6 +4,7 @@ import { ListDropdown } from './ListDropdown.jsx';
 import { LanguageList } from './LanguageList.jsx';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import { Toggle } from '@/components/ui/toggle';
 
 export const Toolbar = ({
     fontList,
@@ -20,25 +21,32 @@ export const Toolbar = ({
     onThemeChange,
     onShowLineNumbersChange,
     onLanguageChange,
+    onPreviewChange,
     onPrint,
 }) => {
     const [themeName, setThemeName] = useState(defaultTheme);
+    const [preview, setPreview] = useState(false);
 
     const handleThemeChange = (themeName) => {
         setThemeName(themeName);
-        onThemeChange(themeName);
+        if (onThemeChange) onThemeChange(themeName);
+    };
+
+    const handlePreviewChange = (newVal) => {
+        console.log(newVal);
+        setPreview(newVal);
+        if (onPreviewChange) onPreviewChange(newVal);
     };
 
     return (
-        <nav className="flex max-h-max flex-row items-center bg-gray-500">
-            <div className="flex flex-row items-center justify-start">
+        <nav className="flex max-h-max flex-row items-center bg-gray-500 p-3 align-middle">
+            <div className="flex flex-row items-center justify-start gap-3 align-middle">
                 <FontDropdown
                     fontList={fontList}
                     defaultFont={defaultFont}
                     onChange={onFontChange}
                 ></FontDropdown>
                 <ListDropdown
-                    className="ml-0"
                     options={fontSizes}
                     defaultItem={defaultSize}
                     onChange={onSizeChange}
@@ -46,12 +54,13 @@ export const Toolbar = ({
                 ></ListDropdown>
                 <ListDropdown
                     options={themes}
-                    defaultItem={defaultTheme}
+                    defaultItem={themeName}
                     onChange={handleThemeChange}
                     caption="Theme"
                 ></ListDropdown>
-                <label className="mx-3 block">
+                <label className="block">
                     <Checkbox
+                        className="align-middle"
                         checked={showLineNumbers}
                         onCheckedChange={onShowLineNumbersChange}
                     />
@@ -63,7 +72,14 @@ export const Toolbar = ({
                     onChange={onLanguageChange}
                 ></LanguageList>
             </div>
-            <div className="ml-auto flex justify-end p-3">
+            <div className="ml-auto flex justify-end gap-3">
+                <Toggle
+                    className="bg-background"
+                    pressed={preview}
+                    onPressedChange={handlePreviewChange}
+                >
+                    Preview
+                </Toggle>
                 <Button variant="outline" onClick={onPrint}>
                     Print
                 </Button>

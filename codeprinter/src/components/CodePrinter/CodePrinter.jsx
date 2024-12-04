@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Toolbar } from './components/Toolbar.jsx';
 import { Textarea } from '@/components/ui/textarea';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import { cn } from '@/lib/utils';
+
 import './lineNumbers.css';
 
 export const CodePrinter = ({ fontList, fontSizes, themes }) => {
@@ -11,8 +13,8 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
     const [showLineNumbers, setShowLineNumbers] = useState(true);
     const [code, setCode] = useState('');
     const [language, setLanguage] = useState('plaintext');
+    const [preview, setPreview] = useState(false);
 
-    console.log(themes[themeName]);
     const languages = SyntaxHighlighter.supportedLanguages.filter((x) => {
         return !x.startsWith('brain');
     });
@@ -36,18 +38,28 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
                     onShowLineNumbersChange={setShowLineNumbers}
                     onLanguageChange={setLanguage}
                     onPrint={window.print}
+                    onPreviewChange={setPreview}
                 ></Toolbar>
             </div>
             <div className="flex grow flex-col p-3">
                 <Textarea
-                    className="grow resize-none print:hidden"
+                    className={cn(
+                        'grow resize-none print:hidden',
+                        preview ? 'hidden' : '',
+                    )}
                     style={{ fontFamily: font, fontSize: size }}
                     placeholder="Paste your code here!"
                     onChange={(e) => setCode(e.currentTarget.value)}
                 ></Textarea>
 
-                <div className="screen:hidden" style={{ fontSize: '62.5%' }}>
+                <div
+                    className={preview ? 'flex grow' : 'screen:hidden'}
+                    style={{
+                        fontSize: '62.5%',
+                    }}
+                >
                     <SyntaxHighlighter
+                        className="flex grow"
                         lineProps={
                             showLineNumbers ? { className: 'lineNumber' } : null
                         }
