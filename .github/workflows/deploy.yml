@@ -22,12 +22,12 @@ jobs:
         with:
           working-directory: ./codeprinter
 
+      - name: Copy CNAME
+        run: cp ./CNAME ./codeprinter/public/CNAME
+
       - name: Build project
         run: npm run build
         working-directory: ./codeprinter
-
-      - name: Copy CNAME
-        run: cp ./CNAME ./codeprinter/public/CNAME
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
