@@ -39,8 +39,8 @@ export const Toolbar = ({
     };
 
     return (
-        <nav className="flex max-h-max flex-row items-center bg-gray-500 p-3 align-middle">
-            <div className="flex flex-row items-center justify-start gap-3 align-middle">
+        <nav className="flex max-h-max flex-wrap items-center bg-gray-500 p-3 align-middle md:flex-row">
+            <div className="flex flex-wrap items-center justify-start gap-3 align-middle md:flex-row">
                 <FontDropdown
                     fontList={fontList}
                     defaultFont={defaultFont}
