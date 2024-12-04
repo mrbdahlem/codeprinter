@@ -47,7 +47,7 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
                         'grow resize-none print:hidden',
                         preview ? 'hidden' : '',
                     )}
-                    style={{ fontFamily: font, fontSize: size }}
+                    style={{ fontFamily: font, fontSize: size + 'pt' }}
                     placeholder="Paste your code here!"
                     onChange={(e) => setCode(e.currentTarget.value)}
                 ></Textarea>
