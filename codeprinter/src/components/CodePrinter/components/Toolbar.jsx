@@ -58,6 +58,11 @@ export const Toolbar = ({
                     onChange={handleThemeChange}
                     caption="Theme"
                 ></ListDropdown>
+                <LanguageList
+                    options={languageList}
+                    defaultItem={defaultLanguage}
+                    onChange={onLanguageChange}
+                ></LanguageList>
                 <label className="block">
                     <Checkbox
                         className="align-middle"
@@ -66,11 +71,6 @@ export const Toolbar = ({
                     />
                     &nbsp;Line Numbers
                 </label>
-                <LanguageList
-                    options={languageList}
-                    defaultItem={defaultLanguage}
-                    onChange={onLanguageChange}
-                ></LanguageList>
             </div>
             <div className="ml-auto flex justify-end gap-3">
                 <Toggle

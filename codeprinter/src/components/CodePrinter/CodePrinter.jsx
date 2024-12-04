@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toolbar } from './components/Toolbar.jsx';
 import { Textarea } from '@/components/ui/textarea';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { cn } from '@/lib/utils';
+import { cn, useLocalStorage } from '@/lib/utils';
 
 import './lineNumbers.css';
 
 export const CodePrinter = ({ fontList, fontSizes, themes }) => {
-    const [font, setFont] = useState('Inconsolata');
-    const [size, setSize] = useState(12);
-    const [themeName, setThemeName] = useState(themes ? 'Grayscale' : 'None');
-    const [showLineNumbers, setShowLineNumbers] = useState(true);
+    const [font, setFont] = useLocalStorage('font', 'Inconsolata');
+    const [size, setSize] = useLocalStorage('fontSize', 12);
+    const [themeName, setThemeName] = useLocalStorage(
+        'theme',
+        themes ? 'Grayscale' : 'None',
+    );
+    const [showLineNumbers, setShowLineNumbers] = useLocalStorage(
+        'lineNumbers',
+        true,
+    );
     const [code, setCode] = useState('');
-    const [language, setLanguage] = useState('plaintext');
+    const [language, setLanguage] = useLocalStorage('language', 'plaintext');
     const [preview, setPreview] = useState(false);
 
     const languages = SyntaxHighlighter.supportedLanguages.filter((x) => {
