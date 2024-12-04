@@ -21,7 +21,7 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
 
     return (
         <>
-            <div className="grow-0 print:hidden">
+            <div className="sticky top-0 z-50 grow-0 print:hidden">
                 <Toolbar
                     fontList={fontList}
                     fontSizes={fontSizes}
@@ -41,7 +41,7 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
                     onPreviewChange={setPreview}
                 ></Toolbar>
             </div>
-            <div className="flex grow flex-col p-3">
+            <div className="flex grow flex-col overflow-y-auto p-3">
                 <Textarea
                     className={cn(
                         'grow resize-none print:hidden',
@@ -53,7 +53,7 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
                 ></Textarea>
 
                 <div
-                    className={preview ? 'flex grow' : 'screen:hidden'}
+                    className={preview ? 'flex' : 'screen:hidden'}
                     style={{
                         fontSize: '62.5%',
                     }}
@@ -61,9 +61,14 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
                     <SyntaxHighlighter
                         className="flex grow"
                         lineProps={
-                            showLineNumbers ? { className: 'lineNumber' } : null
+                            showLineNumbers
+                                ? {
+                                      className:
+                                          'lineNumber whitespace-pre-wrap hyphens-none',
+                                  }
+                                : null
                         }
-                        wrapLines={true}
+                        wrapLines="true"
                         style={themes[themeName] || ''}
                         codeTagProps={{
                             style: {
