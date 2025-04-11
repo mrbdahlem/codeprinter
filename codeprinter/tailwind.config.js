@@ -18,6 +18,7 @@ export default {
                 popover: {
                     DEFAULT: 'hsl(var(--popover))',
                     foreground: 'hsl(var(--popover-foreground))',
+                    background: 'hsl(var(--popover-background))'
                 },
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
@@ -52,10 +53,13 @@ export default {
             },
             screens: {
                 print: { raw: 'print' },
-                screen: { raw: 'screen' },
             },
         },
     },
-    plugins: [require('tailwindcss-animate')],
+    plugins: [require('tailwindcss-animate'),
+      plugin(function ({ addVariant }) {
+        addVariant('data-[state=on]', '&[data-state="on"]');
+        addVariant('data-[state=off]', '&[data-state="off"]');
+      }),],
     darkMode: ['class', 'class'],
 };

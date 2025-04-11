@@ -74,7 +74,7 @@ export const Toolbar = ({
             </div>
             <div className="ml-auto flex justify-end gap-3">
                 <Toggle
-                    className="bg-background"
+                    className="border"
                     pressed={preview}
                     onPressedChange={handlePreviewChange}
                 >

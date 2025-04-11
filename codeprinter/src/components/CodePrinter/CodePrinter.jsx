@@ -59,7 +59,7 @@ export const CodePrinter = ({ fontList, fontSizes, themes }) => {
                 ></Textarea>
 
                 <div
-                    className={preview ? 'flex' : 'screen:hidden'}
+                    className={preview ? 'flex' : 'hidden print:block'}
                     style={{
                         fontSize: '62.5%',
                     }}
