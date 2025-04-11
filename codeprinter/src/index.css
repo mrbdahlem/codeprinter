@@ -83,4 +83,8 @@
       background-color: hsl(var(--accent));
       color: hsl(var(--accent-foreground));
     }
+    [data-selected=true] {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
   }
