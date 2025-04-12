@@ -33,7 +33,6 @@ export const Toolbar = ({
     };
 
     const handlePreviewChange = (newVal) => {
-        console.log(newVal);
         setPreview(newVal);
         if (onPreviewChange) onPreviewChange(newVal);
     };
